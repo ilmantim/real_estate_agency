@@ -6,7 +6,8 @@ from django.db import migrations
 def link_flats_to_owners(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    for flat in Flat.objects.all():
+
+    for flat in Flat.objects.all().iterator():
         
         owner, created = Owner.objects.get_or_create(
             full_name=flat.owner,
